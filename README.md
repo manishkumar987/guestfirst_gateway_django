@@ -1,0 +1,1 @@
+* This is project to create hotel management solution.
