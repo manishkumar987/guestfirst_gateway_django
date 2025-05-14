@@ -84,15 +84,12 @@ WSGI_APPLICATION = 'guestfirst_gateway_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gfg_db',  # Name of your database
         'USER': 'gfg_user',  # Database username
-        'PASSWORD': '123',  # Password you created
+        'PASSWORD': 'gfg_password',  # Password you created
         'HOST': '127.0.0.1',  # Localhost
-        'PORT': '3306',  # Default MySQL port
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'PORT': '5432',  # Default postsql port
     }
 }
 

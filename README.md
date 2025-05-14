@@ -42,29 +42,79 @@ Navigate to the project directory and install the required dependencies:
 python -m pip install -r requirements.txt
 ```
 
-## Install and Set Up MySQL Database
-### Start MySQL (if not running)
-If MySQL is not running, you can start it with:
+## install postgres 
+### for linux wsl
+To install PostgreSQL on a Debian-based Linux distribution running in WSL (Windows Subsystem for Linux), follow these steps:
 
-```sh
-sudo mysqld --user=mysql &
+### 1. Update your package lists
+
+```bash
+sudo apt update
 ```
 
-### Create Database and User
-Log in to your MySQL server and execute the following commands to create a new database and user:
+### 2. Install PostgreSQL
+
+```bash
+sudo apt install postgresql postgresql-contrib
+```
+
+* `postgresql` is the core database package.
+* `postgresql-contrib` includes useful extensions.
+
+### 3. Start the PostgreSQL service
+
+If you're using WSL, you may need to start PostgreSQL manually:
+
+```bash
+sudo service postgresql start
+```
+
+To enable it every time you start WSL, you can add this line to your `~/.bashrc` or `~/.profile`:
+
+```bash
+sudo service postgresql start
+```
+
+If you want to avoid entering a password each time, consider allowing passwordless sudo for that command (not recommended unless you understand the risks).
+
+### 4. Switch to the postgres user and open the PostgreSQL prompt
+
+```bash
+sudo -i -u postgres
+psql
+```
+
+### 5. (Optional) Set a password for the postgres role
 
 ```sql
+\password postgres
+```
+
+### 6. Exit psql and the postgres user shell
+
+```sql
+\q
+exit
+```
+
+ 2. Create a PostgreSQL Database & User
+Switch to the postgres user and access the PostgreSQL shell:
+
+sudo -i -u postgres
+psql
+Then run:
+
+sql
+-- Create a database
 CREATE DATABASE gfg_db;
-CREATE USER 'gfg_user' IDENTIFIED BY '123';
-GRANT ALL PRIVILEGES ON gfg_db.* TO 'gfg_user';
-```
 
-## Apply Database Migrations
-Run the following command to apply database migrations:
+-- Create a user
+CREATE USER gfg_user WITH PASSWORD 'gfg_password';
 
-```sh
-python manage.py migrate
-```
+-- Grant privileges
+GRANT ALL PRIVILEGES ON DATABASE gfg_db TO gfg_user;
+
+
 
 ## Update Project Dependencies
 After installing a new package, update the `requirements.txt` file with:
