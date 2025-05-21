@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'rest_framework_simplejwt',
-    'graphene_django',
+    "strawberry_django",
     'corsheaders',
 
     # Local apps
@@ -145,3 +145,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # setting user model
 AUTH_USER_MODEL = 'users.CustomUser'
+
+STRAWBERRY_SCHEMA = "guestfirst_gateway_django.schema.schema"
+
+
+AUTHENTICATION_BACKENDS = [
+    "users.backends.EmailBackend", 
+    "django.contrib.auth.backends.ModelBackend",
+]
