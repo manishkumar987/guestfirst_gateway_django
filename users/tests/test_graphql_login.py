@@ -1,13 +1,15 @@
 import pytest
 from django.contrib.auth import get_user_model
 from guestfirst_gateway_django.schema import schema
+from asgiref.sync import sync_to_async
 
 User = get_user_model()
 
 @pytest.mark.django_db
-def test_login_user_mutation():
+@pytest.mark.asyncio
+async def test_login_user_mutation():
     # Arrange: create a test user
-    User.objects.create_user(email="login@test.com", password="secure123")
+    await sync_to_async(User.objects.create_user)(email="login@test.com", password="secure123")
 
     # Act: define the mutation and variables
     mutation = """
@@ -24,7 +26,7 @@ def test_login_user_mutation():
         }
     }
 
-    result = schema.execute_sync(mutation, variable_values=variables)
+    result = await schema.execute(mutation, variable_values=variables)
 
     # Assert: ensure no errors and token is returned
     assert result.errors is None, f"GraphQL Errors: {result.errors}"

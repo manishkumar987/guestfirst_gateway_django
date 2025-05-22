@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from strawberry.django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
+from guestfirst_gateway_django.schema import schema
+from strawberry.django.views import AsyncGraphQLView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path("graphql/", csrf_exempt(AsyncGraphQLView.as_view(schema=schema))),
 ]
