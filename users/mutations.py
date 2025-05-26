@@ -21,7 +21,9 @@ async def register_user(input: RegisterInput) -> RegisterResponse:
     if user_exists:
         raise Exception("User already exits")
 
-    user = await sync_to_async(User.objects.create_user)(email=input.email, password=input.password)
+    user = await sync_to_async(User.objects.create_user)(
+        email=input.email, password=input.password
+    )
     return RegisterResponse(success=True, user=user)
 
 

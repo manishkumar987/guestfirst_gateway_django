@@ -1,16 +1,19 @@
 import strawberry
 from users.schema import Mutation as UserMutation
-import strawberry_django
+from users.queries import Query as UserQuery
+# from users.utils.extension import AuthExtension
+# from strawberry.extensions import AddValidationRules
+
 
 @strawberry.type
-class Query:
-    hello: str = strawberry_django.field(resolver=lambda: "hello")
+class Query(UserQuery):
+    pass
 
 
 # can inherit all mutation to Mutation
 @strawberry.type
-class Mutation(UserMutation): 
+class Mutation(UserMutation):
     pass
 
-schema = strawberry.Schema(mutation=Mutation, query=Query)
 
+schema = strawberry.Schema(mutation=Mutation, query=Query)
